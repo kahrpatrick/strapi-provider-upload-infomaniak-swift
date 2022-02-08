@@ -17,7 +17,7 @@ Forked from: @strapi/provider-upload-aws-s3
 
 ```bash
 # using yarn
-yarn add git+ssh://git@git.plantago.dev:10022/plantago/strapi-provider-upload-infomaniak-swift.git#main
+yarn add git+https://github.com/kahrpatrick/strapi-provider-upload-infomaniak-swift.git#main
 ```
 
 ## Configurations
