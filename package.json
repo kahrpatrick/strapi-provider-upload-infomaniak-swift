@@ -1,6 +1,6 @@
 {
   "name": "strapi-provider-upload-infomaniak-swift",
-  "version": "4.0.7",
+  "version": "4.0.7.1",
   "description": "Infomaniak Swift provider for strapi upload",
   "main": "./lib",
   "directories": {
