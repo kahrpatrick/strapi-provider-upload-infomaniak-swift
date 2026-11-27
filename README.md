@@ -22,7 +22,11 @@ yarn add git+https://github.com/kahrpatrick/strapi-provider-upload-infomaniak-sw
 
 ## Configurations
 
-Your configuration is passed down to the provider. (e.g: `new AWS.S3(config)`). You can see the complete list of options [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property)
+Your configuration is passed down to the AWS SDK v3 client (`new S3(config)`). You can see the complete list of options [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3/).
+
+Checksums are only sent where S3 requires them (`requestChecksumCalculation` and `responseChecksumValidation` default to `WHEN_REQUIRED`), because the default of the SDK since 3.729 is not accepted by every S3-compatible endpoint. Both can be overridden in `providerOptions`.
+
+Requires Node.js 20 or newer.
 
 See the [using a provider](https://docs.strapi.io/developer-docs/latest/plugins/upload.html#using-a-provider) documentation for information on installing and using a provider. And see the [environment variables](https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/configurations/optional/environment.html#environment-variables) for setting and using environment variables in your configs.
 
@@ -37,15 +41,17 @@ module.exports = ({ env }) => ({
     config: {
       provider: 'strapi-provider-upload-infomaniak-swift',
       providerOptions: {
-        accessKeyId: env('S3_ACCESS_KEY_ID'),
-        secretAccessKey: env('S3_ACCESS_SECRET'),
+        credentials: {
+          accessKeyId: env('S3_ACCESS_KEY_ID'),
+          secretAccessKey: env('S3_ACCESS_SECRET'),
+        },
         region: env('S3_REGION', 'us-east-1'),
         params: {
           Bucket: env('S3_BUCKET'),
         },
         endpoint: env('S3_ENDPOINT'),
         access_endpoint: env('S3_ACCESS_ENDPOINT'),
-        s3ForcePathStyle: true,
+        forcePathStyle: true,
       },
     },
   },
